@@ -2255,13 +2255,18 @@ document.querySelectorAll('.zhdr').forEach(hdr => {
 function _clearBtns() {
   document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));
 }
+function _resetCards() {
+  document.querySelectorAll('.card').forEach(c=>c.style.display='');
+}
 function filterAll(btn) {
   _clearBtns(); btn.classList.add('active');
+  _resetCards();
   document.querySelectorAll('.zsec').forEach(s=>s.style.display='');
   document.querySelectorAll('.district-hdr,[id="vsb-start"]').forEach(d=>d.style.display='');
 }
 function filterDistrict(btn, dist) {
   _clearBtns(); btn.classList.add('active');
+  _resetCards();
   document.querySelectorAll('.zsec').forEach(s=>{
     s.style.display = (s.dataset.district===dist) ? '' : 'none';
   });
@@ -2269,6 +2274,7 @@ function filterDistrict(btn, dist) {
 }
 function filterZone(btn, zone) {
   _clearBtns(); btn.classList.add('active');
+  _resetCards();
   document.querySelectorAll('.zsec').forEach(s=>{
     s.style.display = (s.dataset.zone===zone) ? '' : 'none';
   });
@@ -2457,23 +2463,6 @@ function filterSaved(btn) {
     });
   });
   document.querySelectorAll('.district-hdr,[id="vsb-start"]').forEach(d=>d.style.display='');
-}
-
-// Restore card visibility after filter change (patch existing filters)
-const _origFilterAll = filterAll;
-const _origFilterDistrict = filterDistrict;
-const _origFilterZone = filterZone;
-function filterAll(btn) {
-  document.querySelectorAll('.card').forEach(c=>c.style.display='');
-  _origFilterAll(btn);
-}
-function filterDistrict(btn, dist) {
-  document.querySelectorAll('.card').forEach(c=>c.style.display='');
-  _origFilterDistrict(btn, dist);
-}
-function filterZone(btn, zone) {
-  document.querySelectorAll('.card').forEach(c=>c.style.display='');
-  _origFilterZone(btn, zone);
 }
 
 function exportSaved() {
