@@ -68,6 +68,52 @@ header p{font-size:11px;color:#8a8fa8;margin-top:1px}
 .feeder-badge{background:#1e3a1e;color:#4caf7d;border-radius:3px;padding:1px 4px;font-size:8px;margin-left:2px;white-space:nowrap}
 .cdate{font-size:9px;color:#555;margin-top:3px}
 
+/* Bookmark button */
+.cbookmark{position:absolute;top:5px;right:5px;background:rgba(26,29,39,.85);border:1px solid #2a2d3a;border-radius:4px;width:22px;height:22px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px;transition:all .15s;z-index:2;flex-shrink:0}
+.cbookmark:hover{border-color:#f0a54a;background:#1c1e35}
+.cbookmark.saved{color:#f0a54a;border-color:#f0a54a;background:#1c1935}
+.card{position:relative}
+
+/* Saved filter badge */
+.fbtn-saved{color:#f0a54a!important}
+.fbtn-saved.active{background:#f0a54a!important;border-color:#f0a54a!important;color:#111!important}
+
+/* Follow-up drawer */
+.fu-drawer{position:fixed;top:0;right:-420px;width:400px;height:100vh;background:#141720;border-left:1px solid #2a2d3a;z-index:9999;display:flex;flex-direction:column;transition:right .28s cubic-bezier(.4,0,.2,1);box-shadow:-8px 0 32px rgba(0,0,0,.5)}
+.fu-drawer.open{right:0}
+.fu-head{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid #2a2d3a;flex-shrink:0}
+.fu-head h3{flex:1;font-size:13px;font-weight:600}
+.fu-count{background:#f0a54a;color:#111;border-radius:10px;padding:1px 7px;font-size:10px;font-weight:700}
+.fu-close{cursor:pointer;font-size:16px;color:#8a8fa8;line-height:1;padding:2px 5px;border-radius:3px}
+.fu-close:hover{color:#fff;background:#2a2d3a}
+.fu-actions{padding:8px 14px;border-bottom:1px solid #2a2d3a;display:flex;gap:7px;flex-shrink:0}
+.fu-btn{padding:5px 11px;border-radius:5px;border:1px solid #2a2d3a;background:#1e2130;color:#b0b4c8;font-size:11px;cursor:pointer;transition:all .15s}
+.fu-btn:hover{border-color:#4f8ef7;color:#fff}
+.fu-btn.danger:hover{border-color:#e05c5c;color:#e05c5c}
+.fu-scroll{flex:1;overflow-y:auto;padding:10px 12px;display:flex;flex-direction:column;gap:10px}
+.fu-scroll::-webkit-scrollbar{width:4px}
+.fu-scroll::-webkit-scrollbar-thumb{background:#2a2d3a;border-radius:2px}
+.fu-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:#555;font-size:12px;gap:8px;text-align:center}
+.fu-empty .fu-star{font-size:32px;opacity:.4}
+.fu-item{background:#1e2130;border:1px solid #2a2d3a;border-radius:7px;overflow:hidden}
+.fu-item-head{display:flex;align-items:flex-start;gap:8px;padding:8px 10px 6px}
+.fu-item-img{width:60px;height:48px;object-fit:cover;border-radius:4px;flex-shrink:0}
+.fu-item-info{flex:1;min-width:0}
+.fu-item-price{font-size:12px;font-weight:700;color:#4caf7d}
+.fu-item-title{font-size:10px;color:#c0c4e0;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fu-item-tags{font-size:9px;color:#8a8fa8;margin-top:2px}
+.fu-item-rm{cursor:pointer;font-size:14px;color:#555;line-height:1;padding:2px 4px;border-radius:3px;flex-shrink:0}
+.fu-item-rm:hover{color:#e05c5c;background:#2a1515}
+.fu-item-note{padding:0 10px 8px}
+.fu-item-note textarea{width:100%;background:#141720;border:1px solid #2a2d3a;border-radius:4px;color:#c0c4e0;font-size:10px;padding:5px 7px;resize:vertical;min-height:42px;font-family:inherit;outline:none;transition:border-color .15s}
+.fu-item-note textarea:focus{border-color:#4f8ef7}
+.fu-item-note textarea::placeholder{color:#444}
+
+/* Drawer toggle FAB */
+.fu-fab{position:fixed;bottom:22px;right:18px;z-index:9998;background:#f0a54a;color:#111;border:none;border-radius:12px;padding:9px 15px;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:6px;box-shadow:0 4px 18px rgba(240,165,74,.35);transition:all .15s}
+.fu-fab:hover{background:#f5b96a;transform:translateY(-1px)}
+.fu-fab-badge{background:#111;color:#f0a54a;border-radius:8px;padding:0 6px;font-size:10px;min-width:16px;text-align:center}
+
 /* Map */
 .right{flex:1;position:relative}
 #map{position:absolute;inset:0;z-index:1}
@@ -102,6 +148,7 @@ header p{font-size:11px;color:#8a8fa8;margin-top:1px}
       <button class="fbtn active" onclick="filterAll(this)">All</button>
       <button class="fbtn" onclick="filterDistrict(this,'WVSD')" style="color:#4f8ef7">West Van (WVSD)</button>
       <button class="fbtn" onclick="filterDistrict(this,'VSB')" style="color:#4fcfa7">Van West (VSB)</button>
+      <button class="fbtn fbtn-saved" id="filterSavedBtn" onclick="filterSaved(this)">Saved</button>
       <div class="fbar-label">West Vancouver schools</div>
       <button class="fbtn" onclick="filterZone(this,'Rockridge Secondary')" style="color:#e07c5c">Rockridge</button><button class="fbtn" onclick="filterZone(this,'Sentinel Secondary')" style="color:#e05c9c">Sentinel</button><button class="fbtn" onclick="filterZone(this,'West Vancouver Secondary')" style="color:#5c7ce0">West Vancouver</button>
       <div class="fbar-label">Vancouver West schools</div>
@@ -2230,6 +2277,230 @@ function filterZone(btn, zone) {
   const feat = ZONES_GJ.features.find(f => f.properties.name===zone);
   if (feat) map.fitBounds(L.geoJSON(feat).getBounds(), {padding:[60,60]});
 }
+</script>
+
+<!-- ── Follow-up drawer ─────────────────────────────────────────────────────── -->
+<div class="fu-drawer" id="fuDrawer">
+  <div class="fu-head">
+    <span>⭐</span>
+    <h3>Saved Listings</h3>
+    <span class="fu-count" id="fuCount">0</span>
+    <span class="fu-close" onclick="toggleDrawer()" title="Close">✕</span>
+  </div>
+  <div class="fu-actions">
+    <button class="fu-btn" onclick="exportSaved()">Export notes</button>
+    <button class="fu-btn danger" onclick="clearAllSaved()">Clear all</button>
+  </div>
+  <div class="fu-scroll" id="fuList">
+    <div class="fu-empty"><div class="fu-star">⭐</div><div>No saved listings yet.<br>Click the ☆ on any card to save it.</div></div>
+  </div>
+</div>
+
+<button class="fu-fab" id="fuFab" onclick="toggleDrawer()" style="display:none">
+  ⭐ Saved <span class="fu-fab-badge" id="fuFabBadge">0</span>
+</button>
+
+<script>
+// ── Bookmark / Follow-up system ───────────────────────────────────────────────
+const LS_KEY = 'schoolzone_saved';
+
+function loadSaved() {
+  try { return JSON.parse(localStorage.getItem(LS_KEY) || '{}'); } catch { return {}; }
+}
+function saveSaved(data) {
+  localStorage.setItem(LS_KEY, JSON.stringify(data));
+}
+
+// Extract card metadata from DOM element
+function cardMeta(card) {
+  const url   = card.dataset.url;
+  const img   = card.querySelector('.cimg')?.src || '';
+  const price = card.querySelector('.cprice')?.childNodes[0]?.textContent?.trim() || '';
+  const meta  = card.querySelector('.cmeta')?.textContent?.trim() || '';
+  const title = card.querySelector('.ctitle a')?.textContent?.trim() || '';
+  const hood  = card.querySelector('.chood')?.textContent?.trim() || '';
+  const path  = card.querySelector('.tpath')?.textContent?.replace(/\s+/g,' ').trim() || '';
+  const dist  = card.closest('.zsec')?.dataset.district || '';
+  return { url, img, price, meta, title, hood, path, dist };
+}
+
+// Add bookmark button to a card
+function injectBookmarkBtn(card) {
+  if (card.querySelector('.cbookmark')) return;
+  const btn = document.createElement('button');
+  btn.className = 'cbookmark';
+  btn.title = 'Save for follow-up';
+  btn.innerHTML = '☆';
+  const saved = loadSaved();
+  if (saved[card.dataset.url]) {
+    btn.classList.add('saved');
+    btn.innerHTML = '⭐';
+  }
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    toggleSave(card, btn);
+  });
+  card.appendChild(btn);
+}
+
+function toggleSave(card, btn) {
+  const saved = loadSaved();
+  const url = card.dataset.url;
+  if (saved[url]) {
+    delete saved[url];
+    btn.classList.remove('saved');
+    btn.innerHTML = '☆';
+  } else {
+    const meta = cardMeta(card);
+    meta.note = '';
+    meta.savedAt = new Date().toISOString();
+    saved[url] = meta;
+    btn.classList.add('saved');
+    btn.innerHTML = '⭐';
+  }
+  saveSaved(saved);
+  refreshSavedUI();
+}
+
+function refreshSavedUI() {
+  const saved = loadSaved();
+  const count = Object.keys(saved).length;
+  document.getElementById('fuCount').textContent = count;
+  document.getElementById('fuFabBadge').textContent = count;
+  const fab = document.getElementById('fuFab');
+  fab.style.display = count > 0 || document.getElementById('fuDrawer').classList.contains('open') ? '' : 'none';
+  // Update saved filter button label
+  const sfBtn = document.getElementById('filterSavedBtn');
+  if (sfBtn) sfBtn.textContent = count > 0 ? `Saved (${count})` : 'Saved';
+  renderDrawer();
+  // Refresh all bookmark button states
+  document.querySelectorAll('.card').forEach(card => {
+    const btn = card.querySelector('.cbookmark');
+    if (!btn) return;
+    if (saved[card.dataset.url]) {
+      btn.classList.add('saved'); btn.innerHTML = '⭐';
+    } else {
+      btn.classList.remove('saved'); btn.innerHTML = '☆';
+    }
+  });
+}
+
+function renderDrawer() {
+  const saved = loadSaved();
+  const list = document.getElementById('fuList');
+  const entries = Object.values(saved).sort((a,b) => new Date(b.savedAt)-new Date(a.savedAt));
+  if (entries.length === 0) {
+    list.innerHTML = '<div class="fu-empty"><div class="fu-star">⭐</div><div>No saved listings yet.<br>Click the ☆ on any card to save it.</div></div>';
+    return;
+  }
+  list.innerHTML = entries.map(item => `
+    <div class="fu-item" data-url="${item.url}">
+      <div class="fu-item-head">
+        <img class="fu-item-img" src="${item.img}" onerror="this.style.display='none'">
+        <div class="fu-item-info">
+          <div class="fu-item-price">${item.price}<span style="font-size:9px;color:#8a8fa8;margin-left:4px">${item.meta}</span></div>
+          <div class="fu-item-title"><a href="${item.url}" target="_blank" style="color:#c0c4e0">${item.title}</a></div>
+          <div class="fu-item-tags">${item.hood}${item.path ? ' · ' + item.path : ''}</div>
+        </div>
+        <span class="fu-item-rm" onclick="removeSaved('${item.url}')" title="Remove">✕</span>
+      </div>
+      <div class="fu-item-note">
+        <textarea placeholder="Notes / follow-up action…" onblur="saveNote('${item.url}', this.value)">${escHtml(item.note||'')}</textarea>
+      </div>
+    </div>
+  `).join('');
+}
+
+function escHtml(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function saveNote(url, val) {
+  const saved = loadSaved();
+  if (saved[url]) { saved[url].note = val; saveSaved(saved); }
+}
+
+function removeSaved(url) {
+  const saved = loadSaved();
+  delete saved[url];
+  saveSaved(saved);
+  refreshSavedUI();
+  // Also clear filter if now empty
+  if (Object.keys(saved).length === 0) {
+    const sfBtn = document.getElementById('filterSavedBtn');
+    if (sfBtn?.classList.contains('active')) filterAll(document.querySelector('.fbtn.active') || sfBtn);
+  }
+}
+
+function clearAllSaved() {
+  if (!confirm('Clear all saved listings?')) return;
+  saveSaved({});
+  refreshSavedUI();
+}
+
+function toggleDrawer() {
+  const drawer = document.getElementById('fuDrawer');
+  const fab = document.getElementById('fuFab');
+  const open = drawer.classList.toggle('open');
+  fab.style.display = open || Object.keys(loadSaved()).length > 0 ? '' : 'none';
+  if (open) renderDrawer();
+}
+
+function filterSaved(btn) {
+  const saved = loadSaved();
+  if (Object.keys(saved).length === 0) return;
+  _clearBtns(); btn.classList.add('active');
+  document.querySelectorAll('.zsec').forEach(s => {
+    const cards = s.querySelectorAll('.card');
+    const hasMatch = [...cards].some(c => saved[c.dataset.url]);
+    s.style.display = hasMatch ? '' : 'none';
+    cards.forEach(c => {
+      c.style.display = saved[c.dataset.url] ? '' : 'none';
+    });
+  });
+  document.querySelectorAll('.district-hdr,[id="vsb-start"]').forEach(d=>d.style.display='');
+}
+
+// Restore card visibility after filter change (patch existing filters)
+const _origFilterAll = filterAll;
+const _origFilterDistrict = filterDistrict;
+const _origFilterZone = filterZone;
+function filterAll(btn) {
+  document.querySelectorAll('.card').forEach(c=>c.style.display='');
+  _origFilterAll(btn);
+}
+function filterDistrict(btn, dist) {
+  document.querySelectorAll('.card').forEach(c=>c.style.display='');
+  _origFilterDistrict(btn, dist);
+}
+function filterZone(btn, zone) {
+  document.querySelectorAll('.card').forEach(c=>c.style.display='');
+  _origFilterZone(btn, zone);
+}
+
+function exportSaved() {
+  const saved = loadSaved();
+  const entries = Object.values(saved).sort((a,b)=>new Date(b.savedAt)-new Date(a.savedAt));
+  if (!entries.length) { alert('No saved listings to export.'); return; }
+  const lines = ['School Zone Rentals — Saved Listings', '='.repeat(50), ''];
+  entries.forEach((item, i) => {
+    lines.push(`${i+1}. ${item.price} ${item.meta} — ${item.title}`);
+    lines.push(`   ${item.hood}${item.dist ? ' ['+item.dist+']' : ''}`);
+    if (item.path) lines.push(`   ${item.path}`);
+    lines.push(`   ${item.url}`);
+    if (item.note) lines.push(`   Note: ${item.note}`);
+    lines.push('');
+  });
+  const blob = new Blob([lines.join('\n')], {type:'text/plain'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'saved-rentals.txt';
+  a.click();
+}
+
+// Init on load
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('.card').forEach(injectBookmarkBtn);
+  refreshSavedUI();
+});
 </script>
 </body>
 </html>
